@@ -1,0 +1,42 @@
+main{
+    background-color: #2e2562;
+    height: 100vh;
+}
+section{
+    background-color: #6952c5;
+    border: 2px solid rgb(255, 255, 255);
+    box-shadow: 0px 0px 20px #1d1d1d;
+    border-radius: 10px;
+    padding: 30px;
+}
+form{
+    gap: 15px;
+}
+h3{
+    color: #fff;
+}
+input{
+    height: auto;
+    width: 300px;
+}
+label{
+    color: white;
+}
+.divider{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+.divider div{
+    flex-grow: 1;
+    height: 2px;
+    background-color: rgb(255, 255, 255);
+}
+.divider span{
+    color: white;
+}

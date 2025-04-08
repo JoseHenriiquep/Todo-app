@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center align-items-center container-fluid" id="main">
+    <div id="container" class="d-flex align-items-center flex-column">
+        <h3>Faça seu Cadastro</h3>
+        <form [formGroup]="registerForm" class="d-flex flex-column"> 
+            <div>
+                <label for="nome" class="form-label">Nome</label>
+                <input 
+                type="text" 
+                id="nome" 
+                formControlName="name"
+                placeholder="Digite seu nome" 
+                class="form-control" 
+                required>
+            </div>
+            <div>
+                <label for="email" class="form-label">E-mail</label>
+                <input 
+                type="email" 
+                id="email"
+                formControlName="email" 
+                placeholder="name@domain.com" 
+                class="form-control" 
+                required
+                >
+            </div>
+            <div>
+                <label for="password" class="form-label">Senha</label>
+                <input 
+                type="password" 
+                id="password" 
+                formControlName="password"
+                class="form-control" 
+                placeholder="Digite sua senha" 
+                required
+                >
+            </div>
+            <div>
+                <label for="confirmPassword" class="form-label">Confirmar senha</label>
+                <input 
+                type="password" 
+                id="confirmPassword" 
+                formControlName="confirmPassword"
+                class="form-control" 
+                placeholder="Confirme sua senha" 
+                required
+                >
+            </div>
+            <button type="submit" class="btn btn-outline-light" (click)="submit()">Finzalizar cadastro</button>
+            <div class="divider">
+                <div></div>
+                <span>ou</span>
+                <div></div>
+            </div>
+            <button class="btn btn-outline-light" (click)="navigate()">Fazer Login</button>
+        </form>
+    </div>
+</div>
+

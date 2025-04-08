@@ -1,0 +1,36 @@
+<main class="d-flex justify-content-center align-items-center container-fluid">
+    <section class="d-flex align-items-center flex-column">
+        <h3>Faça seu login</h3>
+        <form [formGroup]='loginForm' class="d-flex flex-column"> 
+            <div>
+                <label for="email" class="form-label">E-mail</label>
+                <input 
+                    type="text" 
+                    formControlName="email"
+                    id="email" 
+                    placeholder="name@domain.com" 
+                    class="form-control" 
+                    required
+                >
+            </div>
+            <div>
+            <label for="password" class="form-label">Senha</label>
+            <input 
+                type="password" 
+                formControlName="password"
+                id="password" 
+                class="form-control" 
+                placeholder="Digite sua senha" 
+                required
+            >
+            </div>
+            <button type="submit" class="btn btn-outline-light" id="btnLogin" (click)="submit()">Entrar</button>
+            <div class="divider">
+                <div></div>
+                <span>ou</span>
+                <div></div>
+            </div>
+            <button class="btn btn-outline-light" id="btnRegistrar" (click)="navigate()">Fazer cadastro</button>
+        </form>
+    </section>
+</main>
