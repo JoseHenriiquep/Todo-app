@@ -54,6 +54,7 @@ async function login(req, res){
     //Checando se o usuário existe
     const user = await User.findOne({ email: email });
 
+
     if (!user) {
         return res.status(404).json({ msg: "Usuário não encontrado" })
     }

@@ -3,11 +3,13 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
   ],
   providers: [
     AuthService,
@@ -35,10 +37,30 @@ export class RegisterComponent {
     })
   }
 
+  get name(){
+    return this.registerForm.get('name')!;
+  }
+  get email(){
+    return this.registerForm.get('email')!;
+  }
+  get password(){
+    return this.registerForm.get('password')!;
+  }
+  get confirmPassword(){
+    return this.registerForm.get('confirmPassword')!;
+  }
+
+
+  submitted = false;
+
   submit(){
+    this.submitted = true;
     this.onSubmit.emit();
-    this.authService.login(this.registerForm.value.email, this.registerForm.value.password).subscribe({
-      next: () => this.toastService.success("Cadastro feito com sucesso!"),
+    this.authService.register(this.registerForm.value.name, this.registerForm.value.email, this.registerForm.value.password, this.registerForm.value.confirmPassword).subscribe({
+      next: () => {
+          this.toastService.success("Cadastro Realizado com sucesso!"),
+          this.router.navigate(["/"])
+      },
       error: () => this.toastService.error("Algo inesperado aconteceu! Tente novamente mais tarde.")
     })
   }

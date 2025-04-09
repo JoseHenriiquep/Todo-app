@@ -3,11 +3,14 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
   ],
   providers: [
     AuthService,
@@ -33,11 +36,29 @@ export class LoginComponent {
     })
   }
 
+  get email(){
+    return this.loginForm.get('email')!;
+  }
+  get password(){
+    return this.loginForm.get('password')!;
+  }
+
+  submitted = false;
+
   submit(){
+    this.submitted = true;
+
+    if (this.loginForm.invalid) return;
+
     this.onSubmit.emit();
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
-      next: () => this.toastService.success("Login feito com sucesso"),
-      error: () => this.toastService.error("Algo inesperado aconteceu")
+      next: (res) => {
+        this.toastService.success("Login realizado!");
+        localStorage.setItem("token", res.token)
+        console.log(res.token)
+        this.router.navigate(["task-list"])
+      },
+      error: () => this.toastService.error("Login ou senha inválidos")
     })
   }
   navigate(){

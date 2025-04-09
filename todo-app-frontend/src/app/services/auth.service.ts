@@ -7,14 +7,16 @@ import { tap } from "rxjs";
     providedIn: "root"
 })
 export class AuthService{
+
+    private url = "http://localhost:3000";
+
     constructor(private httpClient: HttpClient){ }
 
-    login(name: String, password: String){
-        return this.httpClient.post<AuthResponse>("/", { name, password }).pipe(
-            tap((value) => {
-                localStorage.setItem("auth-token", value.token)
-                localStorage.setItem("username", value.name)
-            })
-        )
+    login(email: String, password: String){
+        return this.httpClient.post<AuthResponse>(`${this.url}/login`, { email, password })
+    }
+
+    register(name: String, email: String, password: String, confirmPassword: String){
+        return this.httpClient.post(`${this.url}/register`, { name, email, password, confirmPassword }).pipe()
     }
 }

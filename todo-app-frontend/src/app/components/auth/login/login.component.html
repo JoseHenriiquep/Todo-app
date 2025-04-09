@@ -1,10 +1,10 @@
 <main class="d-flex justify-content-center align-items-center container-fluid">
     <section class="d-flex align-items-center flex-column">
         <h3>Faça seu login</h3>
-        <form [formGroup]='loginForm' class="d-flex flex-column"> 
+        <form (ngSubmit)="submit()" [formGroup]='loginForm' class="d-flex flex-column"> 
             <div>
                 <label for="email" class="form-label">E-mail</label>
-                <input 
+                <input
                     type="text" 
                     formControlName="email"
                     id="email" 
@@ -12,6 +12,9 @@
                     class="form-control" 
                     required
                 >
+                <div *ngIf="email.invalid && (email.dirty || email.touched || submitted)">
+                    <small *ngIf="email.errors?.['required']">Email é obrigatório</small>
+                </div>
             </div>
             <div>
             <label for="password" class="form-label">Senha</label>
@@ -23,8 +26,11 @@
                 placeholder="Digite sua senha" 
                 required
             >
+            <div *ngIf="password.invalid && (password.dirty || password.touched || submitted)">
+                <small *ngIf="password.errors?.['required']">Senha é obrigatória</small>
             </div>
-            <button type="submit" class="btn btn-outline-light" id="btnLogin" (click)="submit()">Entrar</button>
+            </div>
+            <button type="submit" class="btn btn-outline-light" id="btnLogin">Entrar</button>
             <div class="divider">
                 <div></div>
                 <span>ou</span>

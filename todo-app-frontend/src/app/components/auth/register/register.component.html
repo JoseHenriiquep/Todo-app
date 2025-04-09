@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center align-items-center container-fluid" id="main">
     <div id="container" class="d-flex align-items-center flex-column">
         <h3>Faça seu Cadastro</h3>
-        <form [formGroup]="registerForm" class="d-flex flex-column"> 
+        <form (ngSubmit)="submit()" [formGroup]="registerForm" class="d-flex flex-column"> 
             <div>
                 <label for="nome" class="form-label">Nome</label>
                 <input 
@@ -11,7 +11,11 @@
                 placeholder="Digite seu nome" 
                 class="form-control" 
                 required>
+                <div *ngIf="name.invalid && (name.dirty || name.touched || submitted)">
+                    <small *ngIf="name.errors?.['required']">Nome é obrigatório</small>
+                </div>
             </div>
+            
             <div>
                 <label for="email" class="form-label">E-mail</label>
                 <input 
@@ -22,6 +26,9 @@
                 class="form-control" 
                 required
                 >
+                <div *ngIf="email.invalid && (email.dirty || email.touched || submitted)">
+                    <small *ngIf="email.errors?.['required']">Email é obrigatório</small>
+                </div>
             </div>
             <div>
                 <label for="password" class="form-label">Senha</label>
@@ -33,6 +40,9 @@
                 placeholder="Digite sua senha" 
                 required
                 >
+                <div *ngIf="password.invalid && (password.dirty || password.touched || submitted)">
+                    <small *ngIf="password.errors?.['required']">Senha é obrigatória</small>
+                </div>
             </div>
             <div>
                 <label for="confirmPassword" class="form-label">Confirmar senha</label>
@@ -44,8 +54,11 @@
                 placeholder="Confirme sua senha" 
                 required
                 >
+                <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched || submitted)">
+                    <small *ngIf="confirmPassword.errors?.['required']">Senha é obrigatória</small>
+                </div>
             </div>
-            <button type="submit" class="btn btn-outline-light" (click)="submit()">Finzalizar cadastro</button>
+            <button type="submit" class="btn btn-outline-light" >Finzalizar cadastro</button>
             <div class="divider">
                 <div></div>
                 <span>ou</span>
