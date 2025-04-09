@@ -13,7 +13,18 @@ export class AuthService{
     constructor(private httpClient: HttpClient){ }
 
     login(email: String, password: String){
-        return this.httpClient.post<AuthResponse>(`${this.url}/login`, { email, password })
+        return this.httpClient.post<AuthResponse>(`${this.url}/login`, { email, password }).pipe(
+            tap((value) => {
+                localStorage.setItem("token", value.token);
+                console.log(value.token);
+            })
+        )
+    }
+
+    logout(){
+        alert("Você saiu da sua conta");
+        localStorage.clear();
+        localStorage.removeItem('token');
     }
 
     register(name: String, email: String, password: String, confirmPassword: String){

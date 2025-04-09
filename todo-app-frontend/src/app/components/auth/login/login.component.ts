@@ -52,11 +52,9 @@ export class LoginComponent {
 
     this.onSubmit.emit();
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
-      next: (res) => {
+      next: () => {
         this.toastService.success("Login realizado!");
-        localStorage.setItem("token", res.token)
-        console.log(res.token)
-        this.router.navigate(["task-list"])
+        this.router.navigate(["task-list"]);
       },
       error: () => this.toastService.error("Login ou senha inválidos")
     })
