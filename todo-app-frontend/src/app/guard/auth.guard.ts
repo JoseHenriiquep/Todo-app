@@ -5,10 +5,8 @@ import { inject } from '@angular/core';
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
 
-  const token = localStorage.getItem('token');
-
-  if (token) {
-    return true;
+  if (typeof window !== 'undefined' && localStorage.getItem('token')) {
+    return true 
   } else {
     return false;
   }
