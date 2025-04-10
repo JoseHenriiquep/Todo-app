@@ -9,11 +9,12 @@ function checkAuth(req, res, next){
     }
 
     try {
-        jwt.verify(token, process.env.JWT_SECRET)
-        next()
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        req.userId = verified.id;
+        next();
     } catch (error) {
-        res.status(400).json({ msg: "Token inválido!" })
+        res.status(400).json({ msg: "Token inválido!" });
     }
 }
 
-module.exports = checkAuth;
+module.exports = { checkAuth };
