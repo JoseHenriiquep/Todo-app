@@ -1,12 +1,12 @@
-const User = require('../models/User');
+//Chamando o modelo Task
 const Task = require('../models/Task');
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
 
+//Função para criar nova task
 async function createTask(req, res){
     try {
         const { title, description, status, priority, dueDate } = req.body;
 
+        //Validações
         if (!title) {
             return res.status(422).json({ msg: "O titulo é obrigatório!" })
         }
@@ -23,6 +23,7 @@ async function createTask(req, res){
             return res.status(422).json({ msg: "O prazo é obrigatório!" })
         }
 
+        //Criando nova task
         const newTask = await Task.create({
             title,
             description,
@@ -42,10 +43,12 @@ async function createTask(req, res){
     }
 }
 
+//Função para listar todas as taks pelo usuário que criou
 async function getTask(req, res){
     try {
         const owner = req.userId;
         
+        //Listando as tasks
         const tasks = await Task.find({owner});
         
         if (tasks.length === 0) {
@@ -58,11 +61,13 @@ async function getTask(req, res){
     }
 }
 
+//Função para atualizar uma task 
 async function updateTask(req, res){
     try {
         const { id } = req.params;
         const { title, description, status, priority, dueDate } = req.body;
 
+        //Validações
         if (!title) {
             return res.status(422).json({ msg: "O titulo é obrigatório!" })
         }
@@ -79,6 +84,7 @@ async function updateTask(req, res){
             return res.status(422).json({ msg: "O prazo é obrigatório!" })
         }
 
+        //Atualizando a task
         const taskEdited = await Task.findByIdAndUpdate(id, {title, description, status, priority, dueDate}, { new: true } );
 
         return res.status(200).json({ msg: "Tarefa atualizada com sucesso!", taskEdited });
@@ -89,11 +95,12 @@ async function updateTask(req, res){
     }
 }
 
-
+//Função para deletar uma task
 async function deleteTask(req, res){
     try {
         const { id } = req.params;
 
+        //Deletando a task
         await Task.findByIdAndDelete(id);
 
         return res.status(200).json({ msg: "A tarefa foi deletada!" })

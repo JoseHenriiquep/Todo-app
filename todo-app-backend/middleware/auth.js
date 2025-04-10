@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+//Função para checar se o usuário está logado e puxando o seu Id para usar na controller
 function checkAuth(req, res, next){
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(" ")[1]
