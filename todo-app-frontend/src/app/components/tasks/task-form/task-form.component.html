@@ -1,1 +1,71 @@
-<p>task-form works!</p>
+<main class="d-flex flex-column justify-content-between">
+    <app-header></app-header>
+    <div class="d-flex align-items-center justify-content-center flex-column" id="container">
+        <h3>Adicionar nova tarefa</h3>
+        <form (ngSubmit)="submit()" [formGroup]="taskForm" class="d-flex flex-column">
+            <div>
+                <label for="title" class="form-label">Título:</label>
+                <input 
+                type="text"
+                id="title"
+                class="form-control"
+                formControlName="title"
+                placeholder="Digite o titulo da sua tarefa"
+                required>
+                <div *ngIf="title.invalid && (title.dirty || title.touched || submitted)">
+                    <small *ngIf="title.errors?.['required']">O título é obrigatório</small>
+                </div>
+            </div>
+            <div>
+                <label for="description" class="form-label">Descrição:</label>
+                <input 
+                type="text"
+                id="description"
+                class="form-control"
+                formControlName="description"
+                placeholder="Digite a descrição da sua tarefa"
+                required>
+                <div *ngIf="description.invalid && (description.dirty || description.touched || submitted)">
+                    <small *ngIf="description.errors?.['required']">A descrição é obrigatória</small>
+                </div>
+            </div>
+            <div>
+                <label for="status" class="form-label">Status:</label>
+                <input 
+                class="form-control"
+                id="status"
+                type="text"
+                formControlName="status"
+                aria-label="Status da tarefa">
+            </div>
+            <div>
+                <label for="priority" class="form-label">Prioridade:</label>
+                <select 
+                type="text"
+                id="priority"
+                class="form-control"
+                formControlName="priority"
+                required>
+                    <option value="baixa">Baixa</option>
+                    <option value="media">Media</option>
+                    <option value="alta">Alta</option>
+                </select>
+            </div>
+            <div>
+                <label for="dueDate" class="form-label">Prazo:</label>
+                <input 
+                type="date"
+                id="dueDate"
+                class="form-control"
+                formControlName="dueDate"
+                placeholder="Selecione o prazo para a sua tarefa:"
+                required>
+                <div *ngIf="dueDate.invalid && (dueDate.dirty || dueDate.touched || submitted)">
+                    <small *ngIf="dueDate.errors?.['required']">O prazo é obrigatório</small>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-outline-light" >Adicionar tarefa</button>
+        </form>
+    </div>
+    <app-footer></app-footer>
+</main>
