@@ -6,7 +6,6 @@ import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
-import { Task } from '../../../models/task.model';
 
 @Component({
   selector: 'app-task-form',
