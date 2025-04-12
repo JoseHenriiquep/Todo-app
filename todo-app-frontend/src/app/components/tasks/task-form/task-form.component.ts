@@ -34,7 +34,7 @@ export class TaskFormComponent {
     this.taskForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required, Validators.minLength(10)]),
-      status: new FormControl({ value: 'pendente', disabled: true }, [Validators.required]),
+      status: new FormControl('pendente', [Validators.required]),
       priority: new FormControl('', [Validators.required]),
       dueDate: new FormControl('', [Validators.required])
     })
@@ -57,7 +57,7 @@ export class TaskFormComponent {
   };
 
   taskId: string | null = null;
-  isEdit = false;
+  public isEdit = false;
 
   submitted = false;
 
@@ -69,6 +69,8 @@ export class TaskFormComponent {
       this.taskService.getTaskById(this.taskId).subscribe(task => {
         this.taskForm.patchValue(task)
       })
+    } else {
+      this.taskForm.get('status')?.disable();
     }
   }
 
@@ -83,7 +85,6 @@ export class TaskFormComponent {
     const formData = this.taskForm.getRawValue();
     formData.dueDate = new Date(formData.dueDate);
 
-    console.log('FormData enviado:', formData);
 
     if (this.isEdit && this.taskId) {
       this.taskService.updateTask(this.taskId, formData).subscribe({

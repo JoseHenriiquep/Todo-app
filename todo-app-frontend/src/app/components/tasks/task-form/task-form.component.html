@@ -1,5 +1,5 @@
 <main class="d-flex flex-column justify-content-between">
-    <app-header></app-header>
+    <app-header [isEdit]="isEdit"></app-header>
     <div class="d-flex align-items-center justify-content-center flex-column" id="container">
         <h3>{{isEdit ? 'Editar tarefa' : 'Adicionar nova tarefa'}}</h3>
         <form (ngSubmit)="submit()" [formGroup]="taskForm" class="d-flex flex-column">
@@ -27,16 +27,21 @@
                 required>
                 <div *ngIf="description.invalid && (description.dirty || description.touched || submitted)">
                     <small *ngIf="description.errors?.['required']">A descrição é obrigatória</small>
+                    <small *ngIf="description.errors?.['minlength']">A descrição deve ter no mínimo 10 caracteres</small>
                 </div>
             </div>
             <div>
                 <label for="status" class="form-label">Status:</label>
-                <input 
+                <select 
                 class="form-control"
                 id="status"
                 type="text"
                 formControlName="status"
                 aria-label="Status da tarefa">
+                    <option value="pendente">Pendente</option>
+                    <option value="em_andamento">Em andamento</option>
+                    <option value="concluido">Concluida</option>
+                </select>
             </div>
             <div>
                 <label for="priority" class="form-label">Prioridade:</label>
