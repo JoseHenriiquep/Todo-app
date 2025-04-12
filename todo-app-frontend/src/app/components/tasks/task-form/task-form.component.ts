@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TaskService } from '../../../services/task.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -26,6 +26,7 @@ export class TaskFormComponent {
   taskForm!: FormGroup;
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private taskService : TaskService,
     private toastService: ToastrService
@@ -55,22 +56,51 @@ export class TaskFormComponent {
     return this.taskForm.get('dueDate')!;
   };
 
+  taskId: string | null = null;
+  isEdit = false;
+
   submitted = false;
+
+  ngOnInit(): void{
+    this.taskId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.isEdit = !!this.taskId;
+
+    if (this.isEdit && this.taskId) {
+      this.taskService.getTaskById(this.taskId).subscribe(task => {
+        this.taskForm.patchValue(task)
+      })
+    }
+  }
+
 
   submit(){
     this.submitted = true;
 
     this.onSubmit.emit();
 
+    if (this.taskForm.invalid) return;
+
     const formData = this.taskForm.getRawValue();
     formData.dueDate = new Date(formData.dueDate);
 
-    this.taskService.createTask(formData).subscribe({
-      next: () => {
-        this.toastService.success("Tarefa criada com sucesso!");
-        this.router.navigate(["/task-list"]);
-      },
-      error: () => this.toastService.error("Erro ao criar nova tarefa")
-    })
+    console.log('FormData enviado:', formData);
+
+    if (this.isEdit && this.taskId) {
+      this.taskService.updateTask(this.taskId, formData).subscribe({
+        next: () => {
+          this.toastService.success("Tarefa atualizada com sucesso!");
+          this.router.navigate(["/task-list"]);
+        },
+        error: () => this.toastService.error("Erro ao atualizar tarefa")
+      });
+    } else {
+      this.taskService.createTask(formData).subscribe({
+        next: () => {
+          this.toastService.success("Tarefa criada com sucesso!");
+          this.router.navigate(["/task-list"]);
+        },
+        error: () => this.toastService.error("Erro ao criar nova tarefa")
+      });
+    }
   }
 }

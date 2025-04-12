@@ -67,9 +67,14 @@ async function getTaskById(req, res){
         const { id } = req.params;
 
         const task = await Task.findById(id)
-        res.status(200).json({ msg: "Tarefa encontrada: ", task })
+
+        if (!task) {
+            return res.status(404).json({ msg: "Tarefa não encontrada" })
+        }
+
+        res.status(200).json(task)
     } catch (error) {
-        res.status(404).json({ msg: "Tarefa não encontrada" })
+        res.status(500).json({ msg: "Erro ao encontrar tarefa" })
         console.error(error)
     }
 }

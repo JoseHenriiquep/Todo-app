@@ -16,18 +16,22 @@ export class TaskService{
     ){}
 
     createTask(task: Task): Observable<Task>{
-        return this.httpClient.post<Task>(`${this.url}/newTask`, task)
+        return this.httpClient.post<Task>(`${this.url}/newTask`, task);
     }
 
-    getTask(): Observable<Task[]>{
-        return this.httpClient.get<Task[]>(`${this.url}/tasks`)
+    getTasks(): Observable<Task[]>{
+        return this.httpClient.get<Task[]>(`${this.url}/tasks`);
     }
 
-    updateTask(id: string): Observable<Task>{
-        return this.httpClient.get<Task>(`${this.url}/editTask/${id}`);
+    getTaskById(_id:string): Observable<Task>{
+        return this.httpClient.get<Task>(`${this.url}/task/${_id}`);
     }
 
-    deleteTask(id: string): Observable<Task>{
-        return this.httpClient.get<Task>(`${this.url}/deleteTask/${id}`);
+    updateTask(_id: string, task: Task): Observable<Task>{
+        return this.httpClient.put<Task>(`${this.url}/editTask/${_id}`, task);
+    }
+
+    deleteTask(_id:string){
+        return this.httpClient.delete<void>(`${this.url}/deleteTask/${_id}`);
     }
 }

@@ -1,7 +1,37 @@
 <main class="d-flex flex-column justify-content-between">
     <app-header></app-header>
-    <div class="container-fluid d-flex justify-content-center align-items-center">
-        <h1>Listas vem aqui</h1>
-    </div>
+    <section class="container-fluid d-flex align-items-center table-responsive" *ngIf="(tasks$ | async) as tasks">
+        <ng-container *ngIf="tasks && tasks.length > 0; else noTasks">
+            <table class="table table-hover ">
+              <thead>
+                <tr>
+                  <th scope="col">Titulo</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Prazo</th>
+                  <th scope="col">Opções</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr *ngFor="let task of tasks">
+                  <td>{{task.title}}</td>
+                  <td>{{task.status}}</td>
+                  <td>{{task.dueDate}}</td>
+                  <td>
+                    <button class="btn btn-danger me-2" (click)="deleteTask(task._id!)">Excluir</button>
+                    <button class="btn btn-primary" (click)="navigate(task._id!)">Editar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+          
+        </section>
+        
+        <ng-template #noTasks>
+          <div class="w-100 text-center mt-4">
+            <p>Este usuário não possui tarefas.</p>
+            <p>Clique em "Adicionar Tarefa" no menu para poder criar suas próprias tarefas.</p>
+          </div>
+        </ng-template>
     <app-footer></app-footer>
 </main>
