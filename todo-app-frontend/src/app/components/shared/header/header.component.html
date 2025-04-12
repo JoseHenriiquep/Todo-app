@@ -11,6 +11,9 @@
                     <button class="btn btn-outline-light" *ngIf="router.url === '/task-form'" (click)="navigateTaskList()">
                         Voltar
                     </button>
+                    <button class="btn btn-outline-light" *ngIf="isEdit" (click)="navigateTaskList()">
+                        Cancelar
+                    </button>
                     <button class="btn btn-outline-light" *ngIf="router.url === '/task-list'" (click)="navigateTaskForm()">
                         Adicionar Tarefa
                     </button>
