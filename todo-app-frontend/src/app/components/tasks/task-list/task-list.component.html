@@ -15,7 +15,7 @@
                 <tr *ngFor="let task of tasks">
                   <td>{{task.title}}</td>
                   <td>{{task.status}}</td>
-                  <td>{{task.dueDate}}</td>
+                  <td>{{task.dueDate | date: 'dd/MM/yyyy' : 'UTC'}}</td>
                   <td>
                     <button class="btn btn-danger me-2" (click)="deleteTask(task._id!)">Excluir</button>
                     <button class="btn btn-primary" (click)="navigate(task._id!)">Editar</button>
