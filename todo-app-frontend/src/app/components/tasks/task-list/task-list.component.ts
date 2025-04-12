@@ -53,4 +53,8 @@ export class TaskListComponent {
   navigate(_id: string){
     this.router.navigate(["/task-form", _id])
   }
+
+  taskDetail(_id: string){
+    this.router.navigate(['/task-detail', _id])
+  }
 }
