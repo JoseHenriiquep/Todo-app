@@ -3,4 +3,11 @@ nav{
 }
 a{
     color: #fff;
+} 
+a:hover{
+    cursor:default;
+    color: #fff;
+}
+ul{
+    gap: 15px;
 }
