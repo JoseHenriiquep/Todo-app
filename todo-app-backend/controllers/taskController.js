@@ -61,6 +61,19 @@ async function getTask(req, res){
     }
 }
 
+//Buscar task pelo Id
+async function getTaskById(req, res){
+    try {
+        const { id } = req.params;
+
+        const task = await Task.findById(id)
+        res.status(200).json({ msg: "Tarefa encontrada: ", task })
+    } catch (error) {
+        res.status(404).json({ msg: "Tarefa não encontrada" })
+        console.error(error)
+    }
+}
+
 //Função para atualizar uma task 
 async function updateTask(req, res){
     try {
@@ -110,4 +123,4 @@ async function deleteTask(req, res){
     }
 }
 
-module.exports = { createTask, getTask, updateTask, deleteTask };
+module.exports = { createTask, getTask, getTaskById, updateTask, deleteTask };
