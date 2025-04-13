@@ -34,7 +34,7 @@ export class TaskFormComponent {
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required, Validators.minLength(10)]),
       status: new FormControl('pendente', [Validators.required]),
-      priority: new FormControl('', [Validators.required]),
+      priority: new FormControl('media', [Validators.required]),
       dueDate: new FormControl('', [Validators.required])
     })
   }
