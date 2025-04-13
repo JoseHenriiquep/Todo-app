@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { AuthResponse } from "../types/auth-response.type";
+import { User } from "../models/user.model";
 import { tap } from "rxjs";
 import { Router } from '@angular/router';
 
@@ -16,10 +16,10 @@ export class AuthService{
         private router: Router
     ){ }
 
-    login(email: String, password: String){
-        return this.httpClient.post<AuthResponse>(`${this.url}/login`, { email, password }).pipe(
+    login(email: string, password: string){
+        return this.httpClient.post<User>(`${this.url}/login`, { email, password }).pipe(
             tap((value) => {
-                localStorage.setItem("token", value.token);
+                localStorage.setItem("token", value.token!);
                 console.log(value.token);
             })
         )
@@ -31,7 +31,7 @@ export class AuthService{
         this.router.navigate(["/"]);
     }
 
-    register(name: String, email: String, password: String, confirmPassword: String){
+    register(name: string, email: string, password: string, confirmPassword: string){
         return this.httpClient.post(`${this.url}/register`, { name, email, password, confirmPassword }).pipe()
     }
 }
