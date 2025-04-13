@@ -14,6 +14,7 @@
                 >
                 <div *ngIf="email.invalid && (email.dirty || email.touched || submitted)">
                     <small *ngIf="email.errors?.['required']">Email é obrigatório</small>
+                    <small *ngIf="email.errors?.['email']">Formato de email inválido</small>
                 </div>
             </div>
             <div>
@@ -28,6 +29,7 @@
             >
             <div *ngIf="password.invalid && (password.dirty || password.touched || submitted)">
                 <small *ngIf="password.errors?.['required']">Senha é obrigatória</small>
+                <small *ngIf="password.errors?.['minlength']">Formato da senha inválido</small>
             </div>
             </div>
             <button type="submit" class="btn btn-outline-light" id="btnLogin">Entrar</button>

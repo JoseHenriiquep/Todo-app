@@ -56,7 +56,7 @@ export class LoginComponent {
         this.toastService.success("Login realizado!");
         this.router.navigate(["task-list"]);
       },
-      error: () => this.toastService.error("Login ou senha inválidos")
+      error: () => this.toastService.error("Email ou senha inválidos")
     })
   }
   navigate(){
