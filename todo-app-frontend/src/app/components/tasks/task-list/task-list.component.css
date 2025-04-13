@@ -27,6 +27,7 @@ section{
 }
 table{
     text-align: center;
+    min-width: 500px;
 }
 td:hover{
     cursor: pointer;

@@ -12,10 +12,10 @@
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor="let task of tasks" (click)="taskDetail(task._id!)">
-                  <td>{{task.title}}</td>
-                  <td>{{task.status}}</td>
-                  <td>{{task.dueDate | date: 'dd/MM/yyyy' : 'UTC'}}</td>
+                <tr *ngFor="let task of tasks" >
+                  <td (click)="taskDetail(task._id!)">{{task.title}}</td>
+                  <td (click)="taskDetail(task._id!)">{{task.status}}</td>
+                  <td (click)="taskDetail(task._id!)">{{task.dueDate | date: 'dd/MM/yyyy' : 'UTC'}}</td>
                   <td>
                     <button class="btn btn-danger me-2" (click)="deleteTask(task._id!)">Excluir</button>
                     <button class="btn btn-primary" (click)="navigate(task._id!)">Editar</button>
@@ -24,9 +24,7 @@
               </tbody>
             </table>
           </ng-container>
-          
         </section>
-        
         <ng-template #noTasks>
           <div class="w-100 text-center mt-4">
             <p>Este usuário não possui tarefas.</p>
