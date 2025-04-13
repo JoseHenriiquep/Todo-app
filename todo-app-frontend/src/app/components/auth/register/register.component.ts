@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
@@ -34,6 +34,8 @@ export class RegisterComponent {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
+    }, {
+      validators: this.passwordMatchValidator
     })
   }
 
@@ -48,6 +50,17 @@ export class RegisterComponent {
   }
   get confirmPassword(){
     return this.registerForm.get('confirmPassword')!;
+  }
+
+  passwordMatchValidator(form: AbstractControl) {
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+    if (password !== confirmPassword) {
+      form.get('confirmPassword')?.setErrors({ mismatch: true });
+    } else {
+      form.get('confirmPassword')?.setErrors(null);
+    }
+    return null;
   }
 
 

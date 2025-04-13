@@ -13,6 +13,7 @@
                 required>
                 <div *ngIf="name.invalid && (name.dirty || name.touched || submitted)">
                     <small *ngIf="name.errors?.['required']">Nome é obrigatório</small>
+                    <small *ngIf="name.errors?.['minlength']">O nome deve conter ao mínimo 3 caracteres</small>
                 </div>
             </div>
             
@@ -28,6 +29,7 @@
                 >
                 <div *ngIf="email.invalid && (email.dirty || email.touched || submitted)">
                     <small *ngIf="email.errors?.['required']">Email é obrigatório</small>
+                    <small *ngIf="email.errors?.['email']">Formato de email inválido</small>
                 </div>
             </div>
             <div>
@@ -42,6 +44,7 @@
                 >
                 <div *ngIf="password.invalid && (password.dirty || password.touched || submitted)">
                     <small *ngIf="password.errors?.['required']">Senha é obrigatória</small>
+                    <small *ngIf="password.errors?.['minlength']">A senha deve conter ao mínimo 6 caracteres</small>
                 </div>
             </div>
             <div>
@@ -56,6 +59,7 @@
                 >
                 <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched || submitted)">
                     <small *ngIf="confirmPassword.errors?.['required']">Senha é obrigatória</small>
+                    <small *ngIf="confirmPassword.errors?.['mismatch']">As senhas não conferem</small>
                 </div>
             </div>
             <button type="submit" class="btn btn-outline-light" >Finzalizar cadastro</button>
