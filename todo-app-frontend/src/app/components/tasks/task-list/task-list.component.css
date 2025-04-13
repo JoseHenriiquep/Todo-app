@@ -4,6 +4,7 @@ main{
 section{
     height: 100%;
     background-color: #6952c5;
+    gap: 30px;
 }
 .tarefa{
     display: flex;
@@ -27,11 +28,34 @@ section{
 }
 table{
     text-align: center;
-    min-width: 500px;
+    min-width: 600px;
+}
+td{
+    word-break: break-all;
 }
 td:hover{
     cursor: pointer;
 }
 p{
     color: #fff;
+}
+#filter{
+    width: 100%;
+    display: flex;
+    
+    gap: 10px;
+}
+#filter div{
+    color: #fff;
+    display: flex;
+    gap: 5px;
+}
+.noTasks{
+    background-color: #6952c5;
+    height: 100%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
 }

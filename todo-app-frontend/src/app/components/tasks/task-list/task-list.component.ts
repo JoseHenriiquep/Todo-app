@@ -30,12 +30,42 @@ export class TaskListComponent {
     this.getTasks();
   }
   
-  tasks$ = new Observable<Task[]>();
+  allTasks: Task[] = [];
+  filteredTasks: Task[] = [];
+  hasTasks: boolean = false;
+
+  listStatus: string[] = ['pendente', 'em_andamento', 'concluida'];
+  selectedStatus: string[] = [];
 
   getTasks(){
-    this.tasks$ = this.taskService.getTasks().pipe(
-      startWith([])
-    );
+    this.taskService.getTasks().subscribe(tasks => {
+      this.allTasks = tasks;
+      this.hasTasks = tasks.length > 0;
+      this.applyFilter();
+    });
+  }
+
+  onStatusChange(event: any) {
+    const status = event.target.value;
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      this.selectedStatus.push(status);
+    } else {
+      this.selectedStatus = this.selectedStatus.filter(s => s !== status);
+    }
+
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    if (this.selectedStatus.length === 0) {
+      this.filteredTasks = [...this.allTasks];
+    } else {
+      this.filteredTasks = this.allTasks.filter(task =>
+        this.selectedStatus.includes(task.status)
+      );
+    }
   }
 
   deleteTask(_id: string) {

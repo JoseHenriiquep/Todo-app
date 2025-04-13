@@ -1,32 +1,57 @@
 <main class="d-flex flex-column justify-content-between">
     <app-header></app-header>
-    <section class="container-fluid d-flex align-items-center table-responsive" *ngIf="(tasks$ | async) as tasks">
-        <ng-container *ngIf="tasks && tasks.length > 0; else noTasks">
-            <table class="table table-hover ">
-              <thead>
-                <tr>
-                  <th scope="col">Titulo</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Prazo</th>
-                  <th scope="col">Opções</th>
-                </tr>
-              </thead>
-              <tbody class="table-group-divider">
-                <tr *ngFor="let task of tasks" >
-                  <td (click)="taskDetail(task._id!)">{{task.title}}</td>
-                  <td (click)="taskDetail(task._id!)">{{task.status}}</td>
-                  <td (click)="taskDetail(task._id!)">{{task.dueDate | date: 'dd/MM/yyyy' : 'UTC'}}</td>
-                  <td>
-                    <button class="btn btn-danger me-2" (click)="deleteTask(task._id!)">Excluir</button>
-                    <button class="btn btn-primary" (click)="navigate(task._id!)">Editar</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </ng-container>
-        </section>
+    <section class="container-fluid d-flex flex-column align-items-start align-items-md-center justify-content-start table-responsive" *ngIf="hasTasks === true; else noTasks">
+      <div id="filter">
+        <p><strong>Filtrar por Status:</strong></p>
+        <div>
+          <label class="form-check-label" for="pendente">Pendente</label>
+          <input class="form-check-input"
+          type="checkbox"
+          id="pendente"
+          value="pendente"
+          (change)="onStatusChange($event)">
+        </div>
+        <div>
+          <label class="form-check-label" for="emAndamento">Em andamento</label>
+          <input class="form-check-input"
+          type="checkbox"
+          id="emAndamento"
+          value="em_andamento"
+          (change)="onStatusChange($event)">
+        </div>
+        <div>
+          <label class="form-check-label" for="concluida">Concluída</label>
+          <input class="form-check-input"
+          type="checkbox"
+          id="concluida"
+          value="concluido"
+          (change)="onStatusChange($event)">
+        </div>
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Título</th>
+            <th scope="col">Status</th>
+            <th scope="col">Prazo</th>
+            <th scope="col">Opções</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let task of filteredTasks">
+            <td (click)="taskDetail(task._id!)">{{ task.title }}</td>
+            <td (click)="taskDetail(task._id!)">{{ task.status }}</td>
+            <td (click)="taskDetail(task._id!)">{{ task.dueDate | date: 'dd/MM/yyyy' : 'UTC' }}</td>
+            <td>
+              <button class="btn btn-danger me-2" (click)="deleteTask(task._id!)">Excluir</button>
+              <button class="btn btn-primary" (click)="navigate(task._id!)">Editar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
         <ng-template #noTasks>
-          <div class="w-100 text-center mt-4">
+          <div class="noTasks" >
             <p>Este usuário não possui tarefas.</p>
             <p>Clique em "Adicionar Tarefa" no menu para poder criar suas próprias tarefas.</p>
           </div>
