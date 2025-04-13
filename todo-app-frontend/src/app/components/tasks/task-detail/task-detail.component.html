@@ -1,1 +1,16 @@
-<p>task-detail works!</p>
+<main class="d-flex flex-column justify-content-between">
+    <app-header></app-header>
+    <section class="d-flex align-items-center justify-content-center flex-column">
+        <div id="detail" class="d-flex justify-content-center align-items-center flex-column flex-wrap">
+            <h3>Detalhe da tarefa</h3>
+            <div *ngIf="task">
+                <h4><strong>Título:</strong> {{task.title}}</h4>
+                <p><strong>Descrição:</strong> {{task.description}}</p>
+                <p><strong>Status:</strong> {{task.status}}</p>
+                <p><strong>Prioridade:</strong> {{task.priority}}</p>
+                <p><strong>Prazo:</strong> {{task.dueDate | date: 'dd/MM/yyyy' : 'UTC'}}</p>
+            </div>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</main>
