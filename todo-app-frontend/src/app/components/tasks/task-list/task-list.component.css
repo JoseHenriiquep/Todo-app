@@ -40,9 +40,9 @@ p{
     color: #fff;
 }
 #filter{
+    padding-top: 10px;
     width: 100%;
     display: flex;
-    
     gap: 10px;
 }
 #filter div{
@@ -58,4 +58,5 @@ p{
     align-items: center;
     flex-direction: column;
     padding: 10px;
+    text-align: center;
 }
