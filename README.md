@@ -2,13 +2,13 @@
 
 ### Ações realizadas no console
 1. usar o comando “git clone” + link do repositório 
-2. ⁠usar o comando “cd Todo-App”
+2. ⁠usar o comando “cd Todo-app”
 3. ⁠usar o comando “cd todo-app-frontend”
 4. ⁠usar o comando “npm install” para instalar dependências do front end
 5. ⁠voltar para pasta Todo-App e usar “cd todo-app-backend” 
 6. ⁠⁠usar o comando “npm install” para instalar dependências do Back end
 
-Após instalar todas as dependências, podemos abrir duas abas no terminal na pasta Todo-App
+Após instalar todas as dependências, podemos abrir duas abas no terminal na pasta Todo-app
 
 7. usar o comando “cd todo-app-frontend” e logo em seguida usar o “npm-start”
 8. usar o comando “cd todo-app-backend” e logo em seguida usar o “nodemon app.js”
